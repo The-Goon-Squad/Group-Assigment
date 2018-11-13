@@ -1,28 +1,28 @@
-
+extends Runner.java; 
 public class StatsData 
 {
-    extends Runner.java;  
-    public int avgSteps(Runner)
+ 
+    public int avgSteps(super.Steps)
     {
     	
     }
-    public float avgCalBurnt(Running)
+    public float avgCalBurnt(super.CalBurn)
     {
     	
     }
-    public int avgActiveTime(Runner)
+    public int avgActiveTime(super.time)
     {
     	
     }
-    public float avgDistance(Running)
+    public float avgDistance(super.Distance)
     {
     	
     }
-    public float avgSpeed(Running)
+    public float avgSpeed(super.Speed)
     {
     	
     }
-    public float avgHeartRate(Running)
+    public float avgHeartRate(super.HeartRate)
     {
     	
     }
