@@ -1,7 +1,6 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
-import 
 
 public class ImportData extends Runner {
 	private double time = 0;
@@ -22,7 +21,9 @@ public class ImportData extends Runner {
 			e.printStackTrace();
 		} finally {
 			scanner.close();
-			super.Steps = super.Steps + this.
+			super.Steps = super.Steps + this.steps;
+			super.time = super.time + this.time;
+			super.Distance = super.Distance + this.distance;
 		}
 		
         
