@@ -1,4 +1,5 @@
 
-public class StatsData {
-
+public class StatsData 
+{
+    extends Runner.java;    
 }
