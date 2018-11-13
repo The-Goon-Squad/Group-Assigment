@@ -20,10 +20,10 @@ public class ImportData extends Runner {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} finally {
-			scanner.close();
+			//scanner.close();
 			super.Steps = super.Steps + this.steps;
 			super.time = super.time + this.time;
-			super.Distance = super.Distance + this.distance;
+			super.Distance = super.Distance + this.distance;//
 		}
 		
         
