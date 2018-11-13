@@ -1,8 +1,8 @@
-extends Runner.java; 
-public class StatsData 
+
+public class StatsData extends Running
 {
  
-    public int avgSteps(super.Steps)
+    /*public int avgSteps(super.Steps)
     {
     	
     }
@@ -25,6 +25,6 @@ public class StatsData
     public float avgHeartRate(super.HeartRate)
     {
     	
-    }
+    }*/
 }
 

@@ -6,7 +6,7 @@ public class Profile {
 	private float weight;
 	   
 
-    	public Profile(String name, String gender, String dob, float height, float weight) {
+    public Profile(String name, String gender, String dob, float height, float weight) {
 		this.name = name;
 		this.dob = dob;
 		this.gender = gender;
@@ -26,8 +26,12 @@ public class Profile {
 		this.height = height;
 	}
 	
+	public void setGender(String gender) {
+		this.height = height;
+	}
+	
 	public void setWeight(float weight) {
-		this.weight = weight;
+		this.gender = gender;
 	}
 
 	public String getName(){
@@ -40,6 +44,10 @@ public class Profile {
 
 	public float getHeight(){
 		return this.height;
+	}
+	
+	public String getGender() {
+		return this.gender;
 	}
 
 	public float getWeight(){

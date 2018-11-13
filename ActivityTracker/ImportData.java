@@ -1,9 +1,11 @@
+
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 
-public class ImportData extends Runner {
+public class ImportData extends Running {
 	private double time = 0;
 	private double distance = 0;
 	private double altitude = 0;
@@ -21,10 +23,9 @@ public class ImportData extends Runner {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} finally {
-			scanner.close();
-			super.Steps = super.Steps + this.steps;
-			super.time = super.time + this.time;
-			super.Distance = super.Distance + this.distance;//
+			super.setDistance(super.getDistance() + this.distance);
+			super.setTime((double) (super.getTime() + this.time));
+			super.setAltitude((float) (super.getAltitude() + this.altitude));
 		}
 		
         
