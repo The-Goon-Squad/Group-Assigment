@@ -1,7 +1,11 @@
 
 
+import java.util.ArrayList;
+
 public class StatsData extends Running
 {
+	Running run;//Class variable of runs
+	ArrayList<Running> Runs = new ArrayList<Running>(); //an array list of all runs
  
     /*public int avgSteps(super.Steps)
     {
@@ -27,5 +31,14 @@ public class StatsData extends Running
     {
     	
     }*/
+	public void AddRun(double time,double distance,double altitude) {
+		// a method to add different Runs to the list
+		run.Run(distance, time, altitude);
+		Runs.add(run);
+	}
+	public Object ReturnRuns() { //Returns the list of runs
+		return Runs;
+	}
 }
+
 
