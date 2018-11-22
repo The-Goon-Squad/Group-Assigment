@@ -62,7 +62,7 @@ public class UI extends JFrame {
 		menuBar.add(mnProfile);
 		
 		JMenuItem mntmEditProfile = new JMenuItem("Log out");
-		mnProfile.add(mntmEditProfile);
+		mnProfile.add(mntmEditProfile); b                                                                                                                                                                                       
 		
 		JMenu mnExit = new JMenu("Exit");
 		menuBar.add(mnExit);
