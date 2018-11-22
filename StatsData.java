@@ -1,16 +1,13 @@
 import java.util.ArrayList;
 
 public class StatsData{
-	Running run;//Class variable of runs
-	ImportData imports = new ImportData();
-	ArrayList<Running> Runs = new ArrayList<Running>(); //an array list of all runs
-   
-	/*ArrayList<Double> calories = new ArrayList<Double>();
+	
+	ArrayList<Double> calories = new ArrayList<Double>();
     ArrayList<Double> steps = new ArrayList<Double>();
     ArrayList<Double> activeTimes = new ArrayList<Double>();
     ArrayList<Double> distances = new ArrayList<Double>();
     ArrayList<Double> speeds = new ArrayList<Double>();
-    ArrayList<Double> heartRates = new ArrayList<Double>();*/
+    ArrayList<Double> heartRates = new ArrayList<Double>();
 	
 	public StatsData() {
 	}
@@ -22,69 +19,55 @@ public class StatsData{
 
     
 	//method to calculate average of steps
-	/*public int avgSteps(ArrayList<Double> steps)
+	public Double avgSteps(ArrayList<Double> steps)
     {
-        Double sum=0;
-    	for(i=0; i<steps.size(); i++)
-    	{
-    		sum += steps.get(i);
-    	}
-    	return sum / steps.size();
+ 		return avgCalc(steps);
     }
     
     //method to calculate average of calories burnt
-    public float avgCalBurnt(ArrayList<Double> calories)
+    public Double avgCalBurnt(ArrayList<Double> calories)
     {
-    	Double sum=0;
-    	for(i=0; i<calories.size(); i++)
-    	{
-    		sum += calories.get(i);
-    	}
-    	return sum / calories.size();
+    	return avgCalc(calories);
     }
     
     //method to calculate average of active times
-    public int avgActiveTime(ArrayList<Double> activeTimes)
+    public Double avgActiveTime(ArrayList<Double> activeTimes)
     {
-    	Double sum=0;
-    	for(i=0; i<activeTimes.size(); i++)
-    	{
-    		sum += activeTimes.get(i);
-    	}
-    	return sum / activeTimes.size();
+    	return avgCalc(activeTimes);
     }
     
     //method to calculate average of distances
-    public float avgDistance(ArrayList<Double> distances)
+    public Double avgDistance(ArrayList<Double> distances)
     {
-    	Double sum=0;
-    	for(i=0; i<distances.size(); i++)
-    	{
-    		sum += distances.get(i);
-    	}
-    	return sum / distances.size();
+    	return avgCalc(distances);
     }
     
     //method to calculate average of average speeds
-    public float avgSpeed(ArrayList<Double> speeds)
+    public Double avgSpeed(ArrayList<Double> speeds)
     {
-    	Double sum=0;
-    	for(i=0; i<speeds.size(); i++)
-    	{
-    		sum += speeds.get(i);
-    	}
-    	return sum / speeds.size();
+    	return avgCalc(speeds);
+    }
+    
+   //method to calculate average of average paces
+    public Double avgSpeed(ArrayList<Double> paces)
+    {
+    	return avgCalc(paces);
     }
     
     //method to calculate average of heart rates
-    public float avgHeartRate(ArrayList<Double> heartRates)
+    public Double avgHeartRate(ArrayList<Double> heartRates)
     {
-    	Double sum=0;
-    	for(i=0; i<heartRates.size(); i++)
-    	{
-    		sum += heartRates.get(i);
-    	}
-    	return sum / heartRates.size();
-    }*/
+        return avgCalc(heartRates);
+    }
 	
+    //method to calculate average of a given array list
+	public float avgCalc(ArrayList<Double> list1)
+	{
+		Double sum=0;
+    	for(i=0; i<list1.size(); i++)
+    	{
+    		sum += list1.get(i);
+    	}
+    	return sum / list1.size();
+	}
 }
