@@ -18,7 +18,7 @@ public class ImportData {
 	public ArrayList<Running> importData() {
 		
 		try {
-			scanner = new Scanner(new File("C:\\Users\\Logan\\eclipse-workspace\\Activity Tracker\\src\\Input Format.csv"));
+			scanner = new Scanner(new File("/Users/mallorynolan/git/Group-Assigment/ActivityTracker/InputFormat.csv"));
 			String data = scanner.nextLine();
         	String[] tokens = data.split(",");
         	double totalAltitude = 0;

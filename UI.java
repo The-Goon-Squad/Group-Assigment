@@ -31,7 +31,6 @@ import javax.swing.JScrollBar;
 public class UI extends JFrame {
 
 	private JPanel mainPane;
-	private JTextField textField;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private JTextField txtImportData;
 	private JTextField txtPleaseHookYour;
@@ -136,52 +135,16 @@ public class UI extends JFrame {
 	    JPanel Data = new JPanel();
 	    Data.setBackground(new Color(176, 196, 222));
 	    tabbedPane.addTab("Data", null, Data, null);
+	    Data.setLayout(null);
 	    
-	    textField = new JTextField();
-	    textField.setBackground(new Color(176, 196, 222));
-	    Data.add(textField);
-	    textField.setColumns(10);
+	    JTextPane textPane = new JTextPane();
+	    textPane.setBounds(44, 16, 400, 602);
+	    textPane.setText("Group 4's runs: ");
+	    textPane.setFont(new Font("Tahoma", Font.PLAIN, 20));
+	    textPane.setEditable(false);
+	    textPane.setBackground(new Color(0, 191, 255));
+	    Data.add(textPane);
 	    
-	    /**
-	    * Display the data graph.
-	    */
-	    JTextArea textArea = new JTextArea();
-	    textArea.setEditable(false);
-	    Data.add(textArea);
-	    textArea.setBackground(new Color(176, 196, 222));
-	    textArea.setText("\t|\r\n\t|\r\n\t|\r\n\t|\r\n\t|\r\n\t|\r\n\t|\r\n\t|\r\n\t|\r\n\t|\r\n\t|\r\n\t|\r\n\t|\r\n\t|\r\n\t|\r\n\t|\r\n\t|\r\n\t|\r\n\t|______________________________________________________\r\n\r\n\t\t\t\tDate ");
-	    
-	    JRadioButton rdbtnNewRadioButton = new JRadioButton("Fat Burned");
-	    Data.add(rdbtnNewRadioButton);
-	    rdbtnNewRadioButton.addActionListener(new ActionListener() {
-	    	public void actionPerformed(ActionEvent e) {
-	    			textField.setText("Fat Burned");
-	    	}
-	    });
-	    buttonGroup.add(rdbtnNewRadioButton);
-	    
-	    JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("Calories Burned");
-	    Data.add(rdbtnNewRadioButton_1);
-	    rdbtnNewRadioButton_1.addActionListener(new ActionListener() {
-	    	public void actionPerformed(ActionEvent e) {
-	    			textField.setText("Calories Burned");
-	    	}
-	    });
-	    buttonGroup.add(rdbtnNewRadioButton_1);
-	    
-	    JRadioButton rdbtnNewRadioButton_2 = new JRadioButton("Distance Ran");
-	    Data.add(rdbtnNewRadioButton_2);
-	    rdbtnNewRadioButton_2.addActionListener(new ActionListener() {
-	    	public void actionPerformed(ActionEvent e) {
-	    			textField.setText("Distance Ran");
-	    	}
-	    });
-	    buttonGroup.add(rdbtnNewRadioButton_2);
-	    
-	    
-	    
-	    JCheckBox chckbxNewCheckBox = new JCheckBox("Compare with Friends");
-	    Data.add(chckbxNewCheckBox);
 	    
 	    /**
 	    * Create the import data screen.
@@ -376,8 +339,9 @@ public class UI extends JFrame {
 	    		ArrayList<Running> runs= profile.importData();
 	    		for(int i = 0; i < runs.size(); i++){
 	    			txtpnSectionShowingInformation.setText(txtpnSectionShowingInformation.getText() + "\n\nDate: " + runs.get(i).getDate() + "\nTime : " + Double.toString(runs.get(i).getTime()/60) + 
-	    					                               " minutes\nDistance: " +  Double.toString(runs.get(i).getDistance()) + " meters\nAverage Altitude: " + Double.toString(runs.get(i).getAltitude()) + " meters");
+	    					" minutes\nDistance: " +  Double.toString(runs.get(i).getDistance()) + " meters\nAverage Altitude: " + Double.toString(runs.get(i).getAltitude()) + " meters");
 	    		}
+	    		textPane.setText(txtpnSectionShowingInformation.getText());
 	    		importConfirmation.setText("Data imported");
 	    	}
 	    	
