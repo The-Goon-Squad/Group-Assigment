@@ -13,6 +13,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JTextField;
 import javax.swing.ButtonGroup;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import java.awt.CardLayout;
 import java.awt.Font;
@@ -24,6 +25,8 @@ import java.awt.SystemColor;
 import javax.swing.JEditorPane;
 import javax.swing.SwingConstants;
 import javax.swing.JPasswordField;
+import javax.swing.JScrollPane;
+import javax.swing.JScrollBar;
 
 public class UI extends JFrame {
 
@@ -41,7 +44,7 @@ public class UI extends JFrame {
 	private JTextField textField_1;
 	private JTextField txtUsername_1;
 	private JTextField txtActivityTracker;
-	private Profile profile = new Profile("name", "m", "dob", 66, 55);
+	private Profile profile = new Profile("Group 4", "m", "dob", 66, 55);
 
 	/**
 	 * Create the frame.
@@ -51,7 +54,7 @@ public class UI extends JFrame {
 		setResizable(false);
 		setTitle("Activity Tracker");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 650, 600);
+		setBounds(100, 100, 1049, 780);
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -84,21 +87,21 @@ public class UI extends JFrame {
 	    panel_2.setLayout(null);
 	    
 	    pwdPasswoed = new JPasswordField();
-	    pwdPasswoed.setBounds(226, 263, 157, 20);
+	    pwdPasswoed.setBounds(435, 358, 172, 42);
 	    panel_2.add(pwdPasswoed);
 	    
 	    txtPassword = new JTextField();
 	    txtPassword.setEditable(false);
 	    txtPassword.setHorizontalAlignment(SwingConstants.CENTER);
 	    txtPassword.setBackground(new Color(176, 196, 222));
-	    txtPassword.setFont(new Font("Tahoma", Font.PLAIN, 20));
+	    txtPassword.setFont(new Font("Tahoma", Font.PLAIN, 25));
 	    txtPassword.setText("Password");
-	    txtPassword.setBounds(255, 221, 106, 31);
+	    txtPassword.setBounds(450, 289, 149, 58);
 	    panel_2.add(txtPassword);
 	    txtPassword.setColumns(10);
 	    
 	    textField_1 = new JTextField();
-	    textField_1.setBounds(226, 168, 157, 20);
+	    textField_1.setBounds(435, 218, 172, 42);
 	    panel_2.add(textField_1);
 	    textField_1.setColumns(10);
 	    
@@ -106,10 +109,10 @@ public class UI extends JFrame {
 	    txtUsername_1.setEditable(false);
 	    txtUsername_1.setHorizontalAlignment(SwingConstants.CENTER);
 	    txtUsername_1.setText("Username");
-	    txtUsername_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
+	    txtUsername_1.setFont(new Font("Tahoma", Font.PLAIN, 25));
 	    txtUsername_1.setColumns(10);
 	    txtUsername_1.setBackground(new Color(176, 196, 222));
-	    txtUsername_1.setBounds(255, 126, 106, 31);
+	    txtUsername_1.setBounds(450, 148, 131, 58);
 	    panel_2.add(txtUsername_1);
 	    
 	    txtActivityTracker = new JTextField();
@@ -118,13 +121,14 @@ public class UI extends JFrame {
 	    txtActivityTracker.setForeground(new Color(255, 69, 0));
 	    txtActivityTracker.setHorizontalAlignment(SwingConstants.CENTER);
 	    txtActivityTracker.setText("Activity Tracker");
-	    txtActivityTracker.setFont(new Font("Franklin Gothic Demi", Font.PLAIN, 30));
-	    txtActivityTracker.setBounds(173, 11, 259, 42);
+	    txtActivityTracker.setFont(new Font("Franklin Gothic Demi", Font.PLAIN, 50));
+	    txtActivityTracker.setBounds(329, 11, 380, 106);
 	    panel_2.add(txtActivityTracker);
 	    txtActivityTracker.setColumns(10);
 	    
 	    JButton btnNewButton_1 = new JButton("Sign in");
-	    btnNewButton_1.setBounds(255, 350, 106, 23);
+	    btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 22));
+	    btnNewButton_1.setBounds(460, 539, 132, 42);
 	    panel_2.add(btnNewButton_1);
 	    /**
 	    * Create the data screen.
@@ -188,34 +192,37 @@ public class UI extends JFrame {
 	    importPanel_1.setLayout(null);
 	    
 	    txtImportData = new JTextField();
-	    txtImportData.setBounds(241, 5, 146, 32);
+	    txtImportData.setHorizontalAlignment(SwingConstants.CENTER);
+	    txtImportData.setBounds(241, 5, 441, 58);
 	    txtImportData.setEditable(false);
 	    importPanel_1.add(txtImportData);
 	    txtImportData.setForeground(Color.CYAN);
 	    txtImportData.setBackground(new Color(176, 196, 222));
-	    txtImportData.setFont(new Font("Comic Sans MS", Font.BOLD | Font.ITALIC, 18));
+	    txtImportData.setFont(new Font("Comic Sans MS", Font.BOLD | Font.ITALIC, 50));
 	    txtImportData.setText("Import Data");
 	    txtImportData.setColumns(10);
 	    
 	    txtPleaseHookYour = new JTextField();
+	    txtPleaseHookYour.setHorizontalAlignment(SwingConstants.CENTER);
 	    txtPleaseHookYour.setEditable(false);
-	    txtPleaseHookYour.setFont(new Font("Tahoma", Font.BOLD, 14));
+	    txtPleaseHookYour.setFont(new Font("Tahoma", Font.BOLD, 18));
 	    txtPleaseHookYour.setBackground(new Color(176, 196, 222));
 	    txtPleaseHookYour.setText("Please hook your device up to your computer.");
-	    txtPleaseHookYour.setBounds(137, 62, 337, 32);
+	    txtPleaseHookYour.setBounds(241, 132, 474, 50);
 	    importPanel_1.add(txtPleaseHookYour);
 	    txtPleaseHookYour.setColumns(10);
 	    
 	    JButton btnImport = new JButton("Import");
 	    
 	    btnImport.setFont(new Font("Tahoma", Font.PLAIN, 14));
-	    btnImport.setBounds(235, 104, 152, 50);
+	    btnImport.setBounds(394, 193, 152, 50);
 	    importPanel_1.add(btnImport);
 	    
 	    importConfirmation = new JTextField();
+	    importConfirmation.setFont(new Font("Tahoma", Font.PLAIN, 27));
 	    importConfirmation.setBackground(new Color(176, 196, 222));
 	    importConfirmation.setEditable(false);
-	    importConfirmation.setBounds(235, 199, 152, 20);
+	    importConfirmation.setBounds(372, 270, 201, 44);
 	    importPanel_1.add(importConfirmation);
 	    importConfirmation.setColumns(10);
 	    
@@ -228,31 +235,33 @@ public class UI extends JFrame {
 	    editDatapanel.setLayout(null);
 	    
 	    txtEditData = new JTextField();
+	    txtEditData.setHorizontalAlignment(SwingConstants.CENTER);
 	    txtEditData.setBackground(new Color(176, 196, 222));
-	    txtEditData.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 16));
+	    txtEditData.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 50));
 	    txtEditData.setEditable(false);
 	    txtEditData.setText("Edit Data");
-	    txtEditData.setBounds(266, 11, 86, 20);
+	    txtEditData.setBounds(266, 11, 475, 53);
 	    editDatapanel.add(txtEditData);
 	    txtEditData.setColumns(10);
 	    
 	    JTextArea txtrSelectWhatYou = new JTextArea();
+	    txtrSelectWhatYou.setFont(new Font("Monospaced", Font.PLAIN, 22));
 	    txtrSelectWhatYou.setEditable(false);
 	    txtrSelectWhatYou.setBackground(new Color(176, 196, 222));
 	    txtrSelectWhatYou.setText("Select what you would like to change or remove");
-	    txtrSelectWhatYou.setBounds(186, 42, 372, 22);
+	    txtrSelectWhatYou.setBounds(204, 95, 609, 44);
 	    editDatapanel.add(txtrSelectWhatYou);
 	    
 	    JList list = new JList();
-	    list.setBounds(157, 75, 310, 243);
+	    list.setBounds(339, 150, 310, 243);
 	    editDatapanel.add(list);
 	    
 	    JButton btnEdit = new JButton("Edit");
-	    btnEdit.setBounds(204, 329, 89, 23);
+	    btnEdit.setBounds(339, 452, 89, 23);
 	    editDatapanel.add(btnEdit);
 	    
 	    JButton btnRemove = new JButton("Remove");
-	    btnRemove.setBounds(326, 329, 89, 22);
+	    btnRemove.setBounds(560, 452, 89, 22);
 	    editDatapanel.add(btnRemove);
 	    
 	    /**
@@ -265,28 +274,28 @@ public class UI extends JFrame {
 	    
 	    txtFriendsList = new JTextField();
 	    txtFriendsList.setHorizontalAlignment(SwingConstants.CENTER);
-	    txtFriendsList.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 20));
+	    txtFriendsList.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 50));
 	    txtFriendsList.setText("Friends List");
 	    txtFriendsList.setToolTipText("");
 	    txtFriendsList.setForeground(new Color(0, 0, 0));
 	    txtFriendsList.setEditable(false);
 	    txtFriendsList.setBackground(new Color(176, 196, 222));
-	    txtFriendsList.setBounds(231, 11, 158, 59);
+	    txtFriendsList.setBounds(231, 11, 474, 67);
 	    friendsPanel.add(txtFriendsList);
 	    txtFriendsList.setColumns(10);
 	    
 	    JTextPane txtpnFriendsListHere = new JTextPane();
 	    txtpnFriendsListHere.setEditable(false);
 	    txtpnFriendsListHere.setText("Friends list here");
-	    txtpnFriendsListHere.setBounds(144, 97, 320, 314);
+	    txtpnFriendsListHere.setBounds(316, 89, 320, 314);
 	    friendsPanel.add(txtpnFriendsListHere);
 	    
 	    JButton btnRemoveFriend = new JButton("Remove Friend");
-	    btnRemoveFriend.setBounds(171, 444, 117, 23);
+	    btnRemoveFriend.setBounds(316, 444, 117, 23);
 	    friendsPanel.add(btnRemoveFriend);
 	    
 	    JButton btnNewButton = new JButton("Add Friend");
-	    btnNewButton.setBounds(325, 444, 122, 23);
+	    btnNewButton.setBounds(514, 444, 122, 23);
 	    friendsPanel.add(btnNewButton);
 	    
 	    /**
@@ -298,22 +307,24 @@ public class UI extends JFrame {
 	    profilePanel.setLayout(null);
 	    
 	    JPanel panel = new JPanel();
-	    panel.setBounds(0, 0, 629, 74);
+	    panel.setBounds(0, 0, 1028, 84);
 	    profilePanel.add(panel);
 	    panel.setLayout(null);
 	    
+	    /*Username and profile picture*/
 	    JTextPane txtpnProfilePicture = new JTextPane();
 	    txtpnProfilePicture.setEditable(false);
 	    txtpnProfilePicture.setBackground(new Color(50, 205, 50));
 	    txtpnProfilePicture.setText("Profile Picture");
-	    txtpnProfilePicture.setBounds(10, 11, 59, 52);
+	    txtpnProfilePicture.setBounds(10, 0, 83, 84);
 	    panel.add(txtpnProfilePicture);
 	    
 	    txtUsername = new JTextField();
+	    txtUsername.setFont(new Font("Tahoma", Font.PLAIN, 18));
 	    txtUsername.setEditable(false);
 	    txtUsername.setBackground(new Color(34, 139, 34));
-	    txtUsername.setText("Username");
-	    txtUsername.setBounds(79, 28, 86, 20);
+	    txtUsername.setText(profile.getName());
+	    txtUsername.setBounds(103, 18, 176, 35);
 	    panel.add(txtUsername);
 	    txtUsername.setColumns(10);
 	    
@@ -323,44 +334,54 @@ public class UI extends JFrame {
 	    		
 	    	}
 	    });
-	    btnEditProfile.setBounds(516, 27, 83, 23);
+	    btnEditProfile.setBounds(935, 27, 83, 23);
 	    panel.add(btnEditProfile);
 	    
 	    JPanel panel_1 = new JPanel();
 	    panel_1.setBackground(new Color(70, 130, 180));
-	    panel_1.setBounds(10, 85, 609, 393);
+	    panel_1.setBounds(10, 85, 1018, 607);
 	    profilePanel.add(panel_1);
 	    panel_1.setLayout(null);
 	    
-	    JTextPane txtpnSectionShowingInformation = new JTextPane();
-	    txtpnSectionShowingInformation.setEditable(false);
-	    txtpnSectionShowingInformation.setBackground(new Color(0, 191, 255));
-	    txtpnSectionShowingInformation.setText("Altitude: " + Double.toString(profile.getAltitude()) + "\nDistance: " + Double.toString(profile.getDistance()) + "\nTime: " + Double.toString(profile.getTime()));
-	    txtpnSectionShowingInformation.setBounds(10, 11, 181, 120);
-	    panel_1.add(txtpnSectionShowingInformation);
-	    
-	    btnImport.addActionListener(new ActionListener() {
-	    	public void actionPerformed(ActionEvent e) {
-	    		profile.importData();
-	    		txtpnSectionShowingInformation.setText("Altitude: " + Double.toString(profile.getAltitude()) + "\nDistance: " + Double.toString(profile.getDistance()) + "\nTime: " + Double.toString(profile.getTime()));
-	    		importConfirmation.setText("Data imported");
-	    	}
-	    });
+
 	    
 	    JTextArea txtrSectionShowingUsers = new JTextArea();
 	    txtrSectionShowingUsers.setFont(new Font("Tahoma", Font.PLAIN, 13));
 	    txtrSectionShowingUsers.setBackground(new Color(0, 191, 255));
 	    txtrSectionShowingUsers.setEditable(false);
 	    txtrSectionShowingUsers.setText("Section showing user's \r\npreferred activities");
-	    txtrSectionShowingUsers.setBounds(10, 168, 181, 153);
+	    txtrSectionShowingUsers.setBounds(10, 340, 323, 256);
 	    panel_1.add(txtrSectionShowingUsers);
 	    
 	    JEditorPane editorPane = new JEditorPane();
+	    editorPane.setFont(new Font("Tahoma", Font.PLAIN, 21));
 	    editorPane.setEditable(false);
 	    editorPane.setText("\t|\r\n\t|\r\n\t|\r\n\t|\r\n\t|\r\n\t|\r\n\t|\r\nStats|\r\n\t|\r\n\t|\r\n\t|\r\n\t|\r\n\t|\r\n\t|\r\n\t|\r\n\t|\r\n\t|_______________________________________\r\n\t\t\t\t\tDate");
-	    editorPane.setBounds(201, 11, 398, 330);
+	    editorPane.setBounds(343, 26, 648, 570);
 	    panel_1.add(editorPane);
 	    
+	    JScrollPane scrollPane = new JScrollPane();
+	    scrollPane.setBounds(10, 23, 323, 300);
+	    panel_1.add(scrollPane);
+	    
+	    JTextPane txtpnSectionShowingInformation = new JTextPane();
+	    scrollPane.setViewportView(txtpnSectionShowingInformation);
+	    txtpnSectionShowingInformation.setFont(new Font("Tahoma", Font.PLAIN, 20));
+	    txtpnSectionShowingInformation.setEditable(false);
+	    txtpnSectionShowingInformation.setBackground(new Color(0, 191, 255));
+	    txtpnSectionShowingInformation.setText(profile.getName() + "'s runs: ");
+	    
+	    btnImport.addActionListener(new ActionListener() {
+	    	public void actionPerformed(ActionEvent e) {
+	    		ArrayList<Running> runs= profile.importData();
+	    		for(int i = 0; i < runs.size(); i++){
+	    			txtpnSectionShowingInformation.setText(txtpnSectionShowingInformation.getText() + "\n\nDate: " + runs.get(i).getDate() + "\nTime : " + Double.toString(runs.get(i).getTime()/60) + 
+	    					                               " minutes\nDistance: " +  Double.toString(runs.get(i).getDistance()) + " meters\nAverage Altitude: " + Double.toString(runs.get(i).getAltitude()) + " meters");
+	    		}
+	    		importConfirmation.setText("Data imported");
+	    	}
+	    	
+	    });
 	    
 	}
 }

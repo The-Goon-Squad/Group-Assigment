@@ -1,6 +1,4 @@
-
-
-
+import java.util.ArrayList;
 
 public class Profile {
 	private String name;
@@ -8,23 +6,23 @@ public class Profile {
 	private String dob;
  	private float height;
 	private float weight;
-	private ImportData data = new ImportData("src/Tracker/file.txt");
+	private StatsData data = new StatsData();
 	
 	   
 
-    public Profile(String name, String gender, String dob, float height, float weight) {
-		this.name = name;
-		this.dob = dob;
-		this.gender = gender;
-		this.height = height;
-		this.weight = weight;
+    public Profile(String n, String d, String g, float h, float w) {
+		this.name = n;
+		this.dob = d;
+		this.gender = g;
+		this.height = h;
+		this.weight = w;
 		
 	}
     
-    public void importData() {
-    	data.importData();
+    public ArrayList<Running> importData() {
+    	return data.importStats();
     }
-    public double getDistance() {
+    /*public double getDistance() {
     	return data.getDistance();
     }
     public double getAltitude() {
@@ -32,7 +30,7 @@ public class Profile {
     }
     public double getTime() {
     	return data.getTime();
-    }
+    }*/
 	public void setName(String name) {
 		this.name = name;
 	}

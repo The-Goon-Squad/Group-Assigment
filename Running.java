@@ -11,8 +11,9 @@ public class Running {
 	//private int Steps = 0;
 	private double time = 0;
 	private double altitude = 0;
+	private String date;
 	 // this method is used as the main setter of the class it will set all the stats of the run
-	 public void Run(double D, double T,double Alt){
+	 public Running(double D, double T,double Alt, String date){
 		// this.CalBurn = CB;
 		// this.HeartRate = HR;
 		// this.Speed = S;
@@ -21,10 +22,14 @@ public class Running {
 		// this.Steps = step;
 		 this.time = T;
 		 this.altitude = Alt;
+		 this.date = date;
 		    
 	}
 	 public void setAltitude(double a) {
 		 this.altitude = a;
+	 }
+	 public void setDate(String d) {
+		 this.date = d;
 	 }
 	 /*public void setCalburn(float CB) {
 		 this.CalBurn = CB;
@@ -58,6 +63,9 @@ public class Running {
 	 }*/
 	 public double getAltitude() {
 		 return altitude;
+	 }
+	 public String getDate() {
+		 return this.date;
 	 }
 	 /*public boolean getDehydration() {
 		 return Dehydration;
