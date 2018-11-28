@@ -10,8 +10,10 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ButtonGroup;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.awt.event.ActionEvent;
 import java.awt.CardLayout;
 import java.awt.Font;
@@ -121,7 +123,7 @@ public class UI extends JFrame {
 	    txtActivityTracker.setHorizontalAlignment(SwingConstants.CENTER);
 	    txtActivityTracker.setText("Activity Tracker");
 	    txtActivityTracker.setFont(new Font("Franklin Gothic Demi", Font.PLAIN, 50));
-	    txtActivityTracker.setBounds(329, 11, 380, 106);
+	    txtActivityTracker.setBounds(329, 11, 420 , 106);
 	    panel_2.add(txtActivityTracker);
 	    txtActivityTracker.setColumns(10);
 	    
@@ -226,21 +228,31 @@ public class UI extends JFrame {
 	    JButton btnNewButton_2 = new JButton("Find Data");
 	    btnNewButton_2.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
-	    		SimpleDateFormat sdf = new SimpleDateFormat();
+	    		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 	    		runDisplayData.setText(profile.getName() + "'s runs: ");
 	    		ArrayList<Running> lst = profile.getData();
 	    		
 	    		
 	    		for(int i = 0; i < lst.size(); i++) {
 	    			
-	    			if (lst.get(i).getDate().after(dateBegin.getSelectedDate().getTime()) &&
-	    				lst.get(i).getDate().before(dateEnd.getSelectedDate().getTime())) {
+	    			try {
+						Date currentDate = sdf.parse(sdf.format(lst.get(i).getDate()));
+						Date before = sdf.parse(sdf.format(dateBegin.getSelectedDate().getTime()));
+						Date after = sdf.parse(sdf.format(dateEnd.getSelectedDate().getTime()));
+						
+					
+	    			
+	    			if (currentDate.after(before) && currentDate.before(after) || currentDate.equals(after) || currentDate.equals(before)) {
 	    				
 	 
 	    				runDisplayData.setText(runDisplayData.getText() + "\n\nDate: " + sdf.format(lst.get(i).getDate()) + "\nTime : " + Double.toString(lst.get(i).getTime()/60) + 
 	    					" minutes\nDistance: " +  Double.toString(lst.get(i).getDistance()) + " meters\nAltitude Loss: " + Double.toString(lst.get(i).getAltitudeLoss()) + " meters" + 
 	    						"\nAltitude Gain: " + Double.toString(lst.get(i).getAltitudeGain()) + " meters");
 	    			}
+	    			
+	    			} catch (ParseException e1) {
+						e1.printStackTrace();
+					}
 	    		}
 	    		
 	    	}
