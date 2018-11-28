@@ -1,11 +1,19 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Scanner;
 
 
 public class ImportData {
 	private Scanner scanner;
+	private double[] altitude;
+	private double totalAltLoss;
+	private double totalAltGain;
+	private double lastAlt;
 	ArrayList<Running> Runs = new ArrayList<Running>();
 	
 	public void AddRun(Running run) {
@@ -18,35 +26,56 @@ public class ImportData {
 	public ArrayList<Running> importData() {
 		
 		try {
-			scanner = new Scanner(new File("/Users/mallorynolan/git/Group-Assigment/ActivityTracker/InputFormat.csv"));
+			Runs.clear();
+			SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+			scanner = new Scanner(new File("C:\\Users\\Logan\\eclipse-workspace\\Activity Tracker\\src\\Input Format.csv"));
+			lastAlt = 0;
 			String data = scanner.nextLine();
         	String[] tokens = data.split(",");
+        	Date date = new Date();
+        	date = sdf.parse(tokens[3]);
         	double totalAltitude = 0;
         	int altCount = 0;
-			Running run = new Running(0,0,0,tokens[3]);
+			Running run = new Running(0,0,0, date);
 	        while(scanner.hasNext()){
 	        	data = scanner.nextLine();
 	        	tokens = data.split(",");
 	        	if (Double.parseDouble(tokens[0])==0 && Double.parseDouble(tokens[1])==0){
-	        		run.setAltitude(totalAltitude/altCount);
-	        		altCount = 0;
 	        		Runs.add(run);
-	        		run = new Running(0,0,0, tokens[3]);
-	        		run.setDate(tokens[3]);
+	        		date = new Date();
+	    			lastAlt = 0;
+	        		try {
+						run = new Running(0,0,0, sdf.parse(tokens[3]));
+					} catch (ParseException e) {
+						e.printStackTrace();
+					}
 	        	}
+	        	if (Double.parseDouble(tokens[2]) > lastAlt) {
+	        		run.setAltitudeGain(run.getAltitudeGain() + Double.parseDouble(tokens[2]));
+	        	}
+	        	
+	        	else if(Double.parseDouble(tokens[2]) < lastAlt) {
+	        		run.setAltitudeLoss(run.getAltitudeLoss() + Double.parseDouble(tokens[2]));;
+	        	}
+	        	
+	        	lastAlt =  Double.parseDouble(tokens[2]);
+	        	
 	        	run.setTime(run.getTime() + Double.parseDouble(tokens[0]));
 	        	run.setDistance(run.getDistance() + Double.parseDouble(tokens[1]));
 	        	totalAltitude += Double.parseDouble(tokens[2]);
 	        	altCount++;
 	        	
 	        }
-	        run.setAltitude(totalAltitude/altCount);
-	        altCount = 0;
 	        Runs.add(run);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
+		} catch (ParseException e1) {
+			e1.printStackTrace();
 		}
 		return Runs;
 	}
 }
+
+
+
 
