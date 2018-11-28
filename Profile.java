@@ -19,8 +19,12 @@ public class Profile {
 		
 	}
     
-    public ArrayList<Running> importData() {
-    	return data.importStats();
+    public void importData() {
+    	data.importData();
+    }
+    
+    public ArrayList<Running> getData() {
+    	return data.getRuns();
     }
     /*public double getDistance() {
     	return data.getDistance();
@@ -71,3 +75,4 @@ public class Profile {
 		return this.weight;
 	}
 }
+

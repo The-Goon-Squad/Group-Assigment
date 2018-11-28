@@ -8,11 +8,10 @@ import javax.swing.JMenuItem;
 
 import java.awt.Color;
 import javax.swing.JTextArea;
-import javax.swing.JRadioButton;
-import javax.swing.JCheckBox;
 import javax.swing.JTextField;
 import javax.swing.ButtonGroup;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import java.awt.CardLayout;
@@ -26,7 +25,7 @@ import javax.swing.JEditorPane;
 import javax.swing.SwingConstants;
 import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
-import javax.swing.JScrollBar;
+import datechooser.beans.DateChooserPanel;
 
 public class UI extends JFrame {
 
@@ -44,6 +43,8 @@ public class UI extends JFrame {
 	private JTextField txtUsername_1;
 	private JTextField txtActivityTracker;
 	private Profile profile = new Profile("Group 4", "m", "dob", 66, 55);
+	private JTextField txtBeginningAt;
+	private JTextField txtEndDate;
 
 	/**
 	 * Create the frame.
@@ -132,18 +133,6 @@ public class UI extends JFrame {
 	    /**
 	    * Create the data screen.
 	    */
-	    JPanel Data = new JPanel();
-	    Data.setBackground(new Color(176, 196, 222));
-	    tabbedPane.addTab("Data", null, Data, null);
-	    Data.setLayout(null);
-	    
-	    JTextPane textPane = new JTextPane();
-	    textPane.setBounds(44, 16, 400, 602);
-	    textPane.setText("Group 4's runs: ");
-	    textPane.setFont(new Font("Tahoma", Font.PLAIN, 20));
-	    textPane.setEditable(false);
-	    textPane.setBackground(new Color(0, 191, 255));
-	    Data.add(textPane);
 	    
 	    
 	    /**
@@ -192,6 +181,74 @@ public class UI extends JFrame {
 	    /**
 	    * Create the edit data screen.
 	    */
+	    JPanel Data = new JPanel();
+	    Data.setBackground(new Color(176, 196, 222));
+	    tabbedPane.addTab("Data", null, Data, null);
+	    Data.setLayout(null);
+	    
+	    txtBeginningAt = new JTextField();
+	    txtBeginningAt.setFont(new Font("Trebuchet MS", Font.PLAIN, 22));
+	    txtBeginningAt.setBackground(SystemColor.inactiveCaption);
+	    txtBeginningAt.setText("Beginning Date");
+	    txtBeginningAt.setBounds(44, 61, 198, 32);
+	    Data.add(txtBeginningAt);
+	    txtBeginningAt.setColumns(10);
+	    
+	    txtEndDate = new JTextField();
+	    txtEndDate.setText("End Date");
+	    txtEndDate.setFont(new Font("Trebuchet MS", Font.PLAIN, 22));
+	    txtEndDate.setColumns(10);
+	    txtEndDate.setBackground(SystemColor.inactiveCaption);
+	    txtEndDate.setBounds(44, 324, 198, 32);
+	    Data.add(txtEndDate);
+	    
+	    
+
+	    DateChooserPanel dateBegin = new DateChooserPanel();
+	    dateBegin.setBounds(22, 115, 250, 180);
+	    Data.add(dateBegin);
+	    
+	    DateChooserPanel dateEnd = new DateChooserPanel();
+	    dateEnd.setBounds(22, 367, 250, 180);
+	    Data.add(dateEnd);
+	    
+	    
+	    JScrollPane scrollPane_1 = new JScrollPane();
+	    scrollPane_1.setBounds(377, 219, 467, 283);
+	    Data.add(scrollPane_1);
+	    
+	    JTextPane runDisplayData = new JTextPane();
+	    scrollPane_1.setViewportView(runDisplayData);
+	    runDisplayData.setText(profile.getName() + "'s runs: ");
+	    runDisplayData.setFont(new Font("Tahoma", Font.PLAIN, 20));
+	    runDisplayData.setEditable(false);
+	    runDisplayData.setBackground(new Color(0, 191, 255));
+	    
+	    JButton btnNewButton_2 = new JButton("Find Data");
+	    btnNewButton_2.addActionListener(new ActionListener() {
+	    	public void actionPerformed(ActionEvent e) {
+	    		SimpleDateFormat sdf = new SimpleDateFormat();
+	    		runDisplayData.setText(profile.getName() + "'s runs: ");
+	    		ArrayList<Running> lst = profile.getData();
+	    		
+	    		
+	    		for(int i = 0; i < lst.size(); i++) {
+	    			
+	    			if (lst.get(i).getDate().after(dateBegin.getSelectedDate().getTime()) &&
+	    				lst.get(i).getDate().before(dateEnd.getSelectedDate().getTime())) {
+	    				
+	 
+	    				runDisplayData.setText(runDisplayData.getText() + "\n\nDate: " + sdf.format(lst.get(i).getDate()) + "\nTime : " + Double.toString(lst.get(i).getTime()/60) + 
+	    					" minutes\nDistance: " +  Double.toString(lst.get(i).getDistance()) + " meters\nAltitude Loss: " + Double.toString(lst.get(i).getAltitudeLoss()) + " meters" + 
+	    						"\nAltitude Gain: " + Double.toString(lst.get(i).getAltitudeGain()) + " meters");
+	    			}
+	    		}
+	    		
+	    	}
+	    });
+	    btnNewButton_2.setBounds(44, 586, 198, 40);
+	    Data.add(btnNewButton_2);
+	    
 	    JPanel editDatapanel = new JPanel();
 	    editDatapanel.setBackground(new Color(176, 196, 222));
 	    tabbedPane.addTab("Edit Data", null, editDatapanel, null);
@@ -315,7 +372,7 @@ public class UI extends JFrame {
 	    txtrSectionShowingUsers.setText("Section showing user's \r\npreferred activities");
 	    txtrSectionShowingUsers.setBounds(10, 340, 323, 256);
 	    panel_1.add(txtrSectionShowingUsers);
-	    
+	 
 	    JEditorPane editorPane = new JEditorPane();
 	    editorPane.setFont(new Font("Tahoma", Font.PLAIN, 21));
 	    editorPane.setEditable(false);
@@ -327,21 +384,23 @@ public class UI extends JFrame {
 	    scrollPane.setBounds(10, 23, 323, 300);
 	    panel_1.add(scrollPane);
 	    
-	    JTextPane txtpnSectionShowingInformation = new JTextPane();
-	    scrollPane.setViewportView(txtpnSectionShowingInformation);
-	    txtpnSectionShowingInformation.setFont(new Font("Tahoma", Font.PLAIN, 20));
-	    txtpnSectionShowingInformation.setEditable(false);
-	    txtpnSectionShowingInformation.setBackground(new Color(0, 191, 255));
-	    txtpnSectionShowingInformation.setText(profile.getName() + "'s runs: ");
+	    JTextPane importedData = new JTextPane();
+	    scrollPane.setViewportView(importedData);
+	    importedData.setFont(new Font("Tahoma", Font.PLAIN, 20));
+	    importedData.setEditable(false);
+	    importedData.setBackground(new Color(0, 191, 255));
+	    importedData.setText(profile.getName() + "'s runs: ");
 	    
 	    btnImport.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
-	    		ArrayList<Running> runs= profile.importData();
+	    		profile.importData();
+	    		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+	    		ArrayList<Running> runs= profile.getData();
 	    		for(int i = 0; i < runs.size(); i++){
-	    			txtpnSectionShowingInformation.setText(txtpnSectionShowingInformation.getText() + "\n\nDate: " + runs.get(i).getDate() + "\nTime : " + Double.toString(runs.get(i).getTime()/60) + 
-	    					" minutes\nDistance: " +  Double.toString(runs.get(i).getDistance()) + " meters\nAverage Altitude: " + Double.toString(runs.get(i).getAltitude()) + " meters");
+	    			importedData.setText(importedData.getText() + "\n\nDate: " + sdf.format(runs.get(i).getDate()) + "\nTime : " + Double.toString(runs.get(i).getTime()/60) + 
+	    					" minutes\nDistance: " +  Double.toString(runs.get(i).getDistance()) + " meters\nAltitude Loss: " + Double.toString(runs.get(i).getAltitudeLoss()) + " meters"
+	    					+ "\nAltitude Gain: " + Double.toString(runs.get(i).getAltitudeGain()) + " meters");
 	    		}
-	    		textPane.setText(txtpnSectionShowingInformation.getText());
 	    		importConfirmation.setText("Data imported");
 	    	}
 	    	
@@ -349,4 +408,3 @@ public class UI extends JFrame {
 	    
 	}
 }
-

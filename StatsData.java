@@ -12,10 +12,18 @@ public class StatsData{
 	public StatsData() {
 	}
 	
-	public ArrayList<Running> importStats() {
-		this.Runs = imports.importData();
-		return this.Runs;
+	public void importData() {
+		ArrayList<Running> newData = imports.importData();
+		
+		for (int i = 0; i < newData.size(); i++){
+			Runs.add(newData.get(i));
+		}
+		
 	}
+	
+	public ArrayList<Running> getRuns() {
+		return this.Runs;
+	
 
     
 	//method to calculate average of steps
