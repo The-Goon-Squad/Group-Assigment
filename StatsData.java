@@ -1,7 +1,12 @@
+
+
 import java.util.ArrayList;
 
 public class StatsData{
-	
+	Running run;//Class variable of runs
+	ImportData imports = new ImportData();
+	ArrayList<Running> Runs = new ArrayList<Running>(); //an array list of all runs
+   
 	ArrayList<Double> calories = new ArrayList<Double>();
     ArrayList<Double> steps = new ArrayList<Double>();
     ArrayList<Double> activeTimes = new ArrayList<Double>();
@@ -11,6 +16,7 @@ public class StatsData{
 	
 	public StatsData() {
 	}
+	
 	
 	public void importData() {
 		ArrayList<Running> newData = imports.importData();
@@ -23,9 +29,8 @@ public class StatsData{
 	
 	public ArrayList<Running> getRuns() {
 		return this.Runs;
+	}
 	
-
-    
 	//method to calculate average of steps
 	public Double avgSteps(ArrayList<Double> steps)
     {
@@ -49,12 +54,7 @@ public class StatsData{
     {
     	return avgCalc(distances);
     }
-    
-    //method to calculate average of average speeds
-    public Double avgSpeed(ArrayList<Double> speeds)
-    {
-    	return avgCalc(speeds);
-    }
+
     
    //method to calculate average of average paces
     public Double avgSpeed(ArrayList<Double> paces)
@@ -69,10 +69,10 @@ public class StatsData{
     }
 	
     //method to calculate average of a given array list
-	public float avgCalc(ArrayList<Double> list1)
+	public double avgCalc(ArrayList<Double> list1)
 	{
-		Double sum=0;
-    	for(i=0; i<list1.size(); i++)
+		Double sum = 0.0;
+    	for(int i=0; i<list1.size(); i++)
     	{
     		sum += list1.get(i);
     	}

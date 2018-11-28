@@ -75,4 +75,3 @@ public class Profile {
 		return this.weight;
 	}
 }
-
