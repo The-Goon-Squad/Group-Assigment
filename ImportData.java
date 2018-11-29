@@ -23,12 +23,12 @@ public class ImportData {
 	
 	
 	
-	public ArrayList<Running> importData() {
+	public ArrayList<Running> importData(String fileField) {
 		
 		try {
 			Runs.clear();
 			SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-			scanner = new Scanner(new File("/users/labnet5/gr1/ljs421/workspace/Activity Tracker/src/Input Format.csv"));
+			scanner = new Scanner(new File(fileField));
 			lastAlt = 0;
 			String data = scanner.nextLine();
         	String[] tokens = data.split(",");   //Split the csv file into time, distance, altitude and date

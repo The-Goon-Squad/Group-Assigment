@@ -19,8 +19,8 @@ public class Profile {
 		
 	}
     
-    public void importData() {
-    	data.importData();
+    public void importData(String fileField) {
+    	data.importData(fileField);
     }
     
     public ArrayList<Running> getData() {
@@ -91,4 +91,3 @@ public class Profile {
 		return this.weight;
 	}
 }
-

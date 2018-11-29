@@ -35,6 +35,7 @@ import datechooser.beans.DateChooserPanel;
 import javax.swing.JRadioButton;
 
 public class UI extends JFrame {
+	
 
 	private JPanel mainPane;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
@@ -52,6 +53,7 @@ public class UI extends JFrame {
 	private Profile profile = new Profile("Group 4", "m", "dob", 66, 55);
 	private JTextField txtBeginningAt;
 	private JTextField txtEndDate;
+	private JTextField fileField;
 
 	/**
 	 * Create the frame.
@@ -186,9 +188,19 @@ public class UI extends JFrame {
 	    importConfirmation.setFont(new Font("Tahoma", Font.PLAIN, 27));
 	    importConfirmation.setBackground(new Color(176, 196, 222));
 	    importConfirmation.setEditable(false);
-	    importConfirmation.setBounds(372, 270, 201, 44);
+	    importConfirmation.setBounds(372, 270, 201, 43);
 	    importPanel_1.add(importConfirmation);
 	    importConfirmation.setColumns(10);
+	    
+	    fileField = new JTextField();
+	    fileField.setBounds(241, 82, 474, 38);
+	    importPanel_1.add(fileField);
+	    fileField.setColumns(10);
+	    
+	    JTextArea txtrPlease = new JTextArea();
+	    txtrPlease.setText("Please enter the /file directory ");
+	    txtrPlease.setBounds(21, 88, 208, 26);
+	    importPanel_1.add(txtrPlease);
 	    
 	    /**
 	    * Create the edit data screen.
@@ -499,7 +511,7 @@ public class UI extends JFrame {
 	    //update the runs section of the profile screen when data is imported
 	    btnImport.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
-	    		profile.importData();
+	    		profile.importData(fileField.getText());
 	    		DecimalFormat value = new DecimalFormat("#.#");
 	    		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 	    		ArrayList<Running> runs= profile.getData();

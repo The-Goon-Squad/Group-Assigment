@@ -20,8 +20,8 @@ public class StatsData{
 	}
 	
 	
-	public void importData() {
-		ArrayList<Running> newData = imports.importData();
+	public void importData(String fileField) {
+		ArrayList<Running> newData = imports.importData(fileField);
 		
 		for (int i = 0; i < newData.size(); i++){
 			Runs.add(newData.get(i));
