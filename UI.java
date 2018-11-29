@@ -278,7 +278,7 @@ public class UI extends JFrame {
 	    		if (count == 0) {
 	    			runDisplayData.setText("No sessions found between these dates");
 	    		}
-	    		runDisplayData.setText(runDisplayData.getText() + "\n___________________\n" + "Average time for selected sessions: " + value.format(totalTime/count/60) + " minutes\nAverage distance for this session: "
+	    		runDisplayData.setText(runDisplayData.getText() + "\n___________________\n" + "Average time for selected sessions: " + value.format(totalTime/count/60) + " minutes\nAverage distance: "
     					+ value.format(totalDistance/count) + " meters\nAverage Calories burned: " + value.format(totalCal/count) + " Calories\n" + "Average speed: " + value.format(totalDistance/totalTime)
     					+ " meters per second");
 	    		
