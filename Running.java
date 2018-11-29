@@ -3,7 +3,6 @@ import java.util.Date;
 //All unneeded methods and variables are commented out
 public class Running {
 	//The variables are defaulted to zero if no data was collected during the run
-	private float CalBurn = 0;
 
 	private double Distance = 0;
 	private double time = 0;
@@ -24,6 +23,17 @@ public class Running {
 		 this.date = d;
 		    
 	}
+	 
+	 public double getAvgSpeed() {
+		 return Distance/time;
+	 }
+	 
+	 public double getCalsBurned() {
+		 double miles = getDistance() * 0.6214;		 
+		 return 0.75 * 150 * miles / 1000;
+		
+	 }
+	 
 	 public void setAltitudeLoss(double a) {
 		 this.altitudeLoss = a;
 	 }
@@ -43,9 +53,6 @@ public class Running {
 	 public void setDate(Date d) {
 		 this.date = d;
 	 }
-	 public void setCalburn(float CB) {
-		 this.CalBurn = CB;
-	 }
 
 	 public void setDistance(double d) {
 		 this.Distance = d;
@@ -54,9 +61,6 @@ public class Running {
 	 
 	 public void setTime(double d) {
 		 this.time = d;
-	 }
-	 public float getCalBurn() {
-		 return CalBurn;
 	 }
 
 	 public Date getDate() {

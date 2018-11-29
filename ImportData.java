@@ -31,17 +31,15 @@ public class ImportData {
 			scanner = new Scanner(new File("/users/labnet5/gr1/ljs421/workspace/Activity Tracker/src/Input Format.csv"));
 			lastAlt = 0;
 			String data = scanner.nextLine();
-        	String[] tokens = data.split(",");
+        	String[] tokens = data.split(",");   //Split the csv file into time, distance, altitude and date
         	Date date = new Date();
         	date = sdf.parse(tokens[3]);
-        	double totalAltitude = 0;
-        	int altCount = 0;
 			Running run = new Running(0,0,0, date);
-	        while(scanner.hasNext()){
+	        while(scanner.hasNext()){    //Read the csv file
 	        	data = scanner.nextLine();
 	        	tokens = data.split(",");
-	        	if (Double.parseDouble(tokens[0])==0 && Double.parseDouble(tokens[1])==0){
-	        		Runs.add(run);
+	        	if (Double.parseDouble(tokens[0])==0 && Double.parseDouble(tokens[1])==0){  //This means the current run has ended
+	        		Runs.add(run);   		//Add the run to the arraylist and instantiate a new run
 	        		date = new Date();
 	    			lastAlt = 0;
 	        		try {
@@ -50,7 +48,7 @@ public class ImportData {
 						e.printStackTrace();
 					}
 	        	}
-	        	if (Double.parseDouble(tokens[2]) > lastAlt) {
+	        	if (Double.parseDouble(tokens[2]) > lastAlt) {										//Determine whether the user has increased or decreased altitude
 	        		run.setAltitudeGain(run.getAltitudeGain() + Double.parseDouble(tokens[2]));
 	        	}
 	        	
@@ -62,8 +60,6 @@ public class ImportData {
 	        	
 	        	run.setTime(run.getTime() + Double.parseDouble(tokens[0]));
 	        	run.setDistance(run.getDistance() + Double.parseDouble(tokens[1]));
-	        	totalAltitude += Double.parseDouble(tokens[2]);
-	        	altCount++;
 	        	
 	        }
 	        Runs.add(run);

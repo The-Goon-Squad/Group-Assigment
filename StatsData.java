@@ -1,5 +1,7 @@
 
 
+
+
 import java.util.ArrayList;
 
 public class StatsData{
@@ -32,34 +34,50 @@ public class StatsData{
 	}
 	
 	//method to calculate average of steps
-	public Double avgSteps(ArrayList<Double> steps)
+	public Double avgSteps()
     {
  		return avgCalc(steps);
     }
     
     //method to calculate average of calories burnt
-    public Double avgCalBurnt(ArrayList<Double> calories)
+    public Double avgCalsBurnt()
     {
-    	return avgCalc(calories);
+    	ArrayList<Double> cals = new ArrayList<Double>();
+    	for(Running i : Runs) {
+    		cals.add(i.getCalsBurned());
+    	}
+    	return avgCalc(cals);
     }
     
     //method to calculate average of active times
-    public Double avgActiveTime(ArrayList<Double> activeTimes)
+    public Double avgActiveTime()
     {
-    	return avgCalc(activeTimes);
+    	ArrayList<Double> times = new ArrayList<Double>();
+    	for(Running i : Runs) {
+    		times.add(i.getTime());
+    	}
+    	return avgCalc(times);
     }
     
     //method to calculate average of distances
-    public Double avgDistance(ArrayList<Double> distances)
+    public Double avgDistance()
     {
+    	ArrayList<Double> distances = new ArrayList<Double>();
+    	for(Running i : Runs) {
+    		distances.add(i.getDistance());
+    	}
     	return avgCalc(distances);
     }
 
     
    //method to calculate average of average paces
-    public Double avgSpeed(ArrayList<Double> paces)
+    public Double avgSpeed()
     {
-    	return avgCalc(paces);
+    	ArrayList<Double> speeds = new ArrayList<Double>();
+    	for(Running i : Runs) {
+    		speeds.add(i.getAvgSpeed());
+    	}
+    	return avgCalc(speeds);
     }
     
     //method to calculate average of heart rates

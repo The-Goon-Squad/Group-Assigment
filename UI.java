@@ -2,6 +2,10 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JMenuBar;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
@@ -10,6 +14,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ButtonGroup;
 import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -27,6 +32,7 @@ import javax.swing.SwingConstants;
 import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 import datechooser.beans.DateChooserPanel;
+import javax.swing.JRadioButton;
 
 public class UI extends JFrame {
 
@@ -57,6 +63,7 @@ public class UI extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1049, 780);
 		
+		//Set menu bar and menu bar items
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 		
@@ -70,6 +77,13 @@ public class UI extends JFrame {
 		menuBar.add(mnExit);
 		
 		JMenuItem mntmEit = new JMenuItem("Exit");
+		mntmEit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
+		
+		//Create main panel with tabs
 		mnExit.add(mntmEit);
 		mainPane = new JPanel();
 		mainPane.setBackground(Color.LIGHT_GRAY);
@@ -131,9 +145,6 @@ public class UI extends JFrame {
 	    btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 22));
 	    btnNewButton_1.setBounds(460, 539, 132, 42);
 	    panel_2.add(btnNewButton_1);
-	    /**
-	    * Create the data screen.
-	    */
 	    
 	    
 	    /**
@@ -191,7 +202,7 @@ public class UI extends JFrame {
 	    txtBeginningAt.setFont(new Font("Trebuchet MS", Font.PLAIN, 22));
 	    txtBeginningAt.setBackground(SystemColor.inactiveCaption);
 	    txtBeginningAt.setText("Beginning Date");
-	    txtBeginningAt.setBounds(44, 61, 198, 32);
+	    txtBeginningAt.setBounds(44, 72, 198, 32);
 	    Data.add(txtBeginningAt);
 	    txtBeginningAt.setColumns(10);
 	    
@@ -226,43 +237,76 @@ public class UI extends JFrame {
 	    runDisplayData.setBackground(new Color(0, 191, 255));
 	    
 	    JButton btnNewButton_2 = new JButton("Find Data");
+	    
+	    //What to do when Find Data button is pressed
 	    btnNewButton_2.addActionListener(new ActionListener() {
+	    	
+			//sdf will trim the times from the Date objects and return the desired form of date
+			SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+			ArrayList<Running> lst = profile.getData();
 	    	public void actionPerformed(ActionEvent e) {
-	    		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+	    		int count = 0;
+				double totalTime = 0;
+				double totalDistance = 0;
+				double totalCal = 0;
+	    		DecimalFormat value = new DecimalFormat("#.##");
 	    		runDisplayData.setText(profile.getName() + "'s runs: ");
-	    		ArrayList<Running> lst = profile.getData();
-	    		
-	    		
 	    		for(int i = 0; i < lst.size(); i++) {
-	    			
 	    			try {
 						Date currentDate = sdf.parse(sdf.format(lst.get(i).getDate()));
 						Date before = sdf.parse(sdf.format(dateBegin.getSelectedDate().getTime()));
 						Date after = sdf.parse(sdf.format(dateEnd.getSelectedDate().getTime()));
 						
-					
+						
 	    			
 	    			if (currentDate.after(before) && currentDate.before(after) || currentDate.equals(after) || currentDate.equals(before)) {
-	    				
-	 
-	    				runDisplayData.setText(runDisplayData.getText() + "\n\nDate: " + sdf.format(lst.get(i).getDate()) + "\nTime : " + Double.toString(lst.get(i).getTime()/60) + 
+	    				count++;
+	    				totalTime += lst.get(i).getTime();
+	    				totalDistance += lst.get(i).getDistance();
+	    				totalCal += lst.get(i).getCalsBurned();
+	    				runDisplayData.setText(runDisplayData.getText() + "\n\nRun " + (i+1) + ":\nDate: " + sdf.format(lst.get(i).getDate()) + "\nTime : " + Double.toString(lst.get(i).getTime()/60) + 
 	    					" minutes\nDistance: " +  Double.toString(lst.get(i).getDistance()) + " meters\nAltitude Loss: " + Double.toString(lst.get(i).getAltitudeLoss()) + " meters" + 
-	    						"\nAltitude Gain: " + Double.toString(lst.get(i).getAltitudeGain()) + " meters");
+	    						"\nAltitude Gain: " + Double.toString(lst.get(i).getAltitudeGain()) + " meters" + "\nAverage Speed: " + value.format(lst.get(i).getAvgSpeed()) + " meters per second\n" +
+		    					"Calories Burned: " + value.format(lst.get(i).getCalsBurned()) + " Calories");
 	    			}
 	    			
 	    			} catch (ParseException e1) {
 						e1.printStackTrace();
 					}
+	    			
 	    		}
+	    		if (count == 0) {
+	    			runDisplayData.setText("No sessions found between these dates");
+	    		}
+	    		runDisplayData.setText(runDisplayData.getText() + "\n___________________\n" + "Average time for selected sessions: " + value.format(totalTime/count/60) + " minutes\nAverage distance for this session: "
+    					+ value.format(totalDistance/count) + " meters\nAverage Calories burned: " + value.format(totalCal/count) + " Calories\n" + "Average speed: " + value.format(totalDistance/totalTime)
+    					+ " meters per second");
 	    		
 	    	}
+	    	
 	    });
 	    btnNewButton_2.setBounds(44, 586, 198, 40);
 	    Data.add(btnNewButton_2);
 	    
+	    JTextArea txtrSelectTheDates = new JTextArea();
+	    txtrSelectTheDates.setEditable(false);
+	    txtrSelectTheDates.setFont(new Font("MS Reference Sans Serif", Font.PLAIN, 16));
+	    txtrSelectTheDates.setBackground(SystemColor.info);
+	    txtrSelectTheDates.setText("Select the dates to see all data between your selections");
+	    txtrSelectTheDates.setBounds(377, 115, 472, 25);
+	    Data.add(txtrSelectTheDates);
+	    
+	    JTextArea txtrViewYourData = new JTextArea();
+	    txtrViewYourData.setText("\t\tData Viewer");
+	    txtrViewYourData.setFont(new Font("MS Reference Sans Serif", Font.BOLD, 26));
+	    txtrViewYourData.setBackground(SystemColor.activeCaption);
+	    txtrViewYourData.setBounds(22, 11, 996, 50);
+	    Data.add(txtrViewYourData);
+	    
+	    //This panel will allow us to view statistics
 	    JPanel editDatapanel = new JPanel();
 	    editDatapanel.setBackground(new Color(176, 196, 222));
-	    tabbedPane.addTab("Edit Data", null, editDatapanel, null);
+	    tabbedPane.addTab("Statistics", null, editDatapanel, null);
 	    editDatapanel.setLayout(null);
 	    
 	    txtEditData = new JTextField();
@@ -270,30 +314,77 @@ public class UI extends JFrame {
 	    txtEditData.setBackground(new Color(176, 196, 222));
 	    txtEditData.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 50));
 	    txtEditData.setEditable(false);
-	    txtEditData.setText("Edit Data");
+	    txtEditData.setText("Statistics");
 	    txtEditData.setBounds(266, 11, 475, 53);
 	    editDatapanel.add(txtEditData);
 	    txtEditData.setColumns(10);
 	    
-	    JTextArea txtrSelectWhatYou = new JTextArea();
-	    txtrSelectWhatYou.setFont(new Font("Monospaced", Font.PLAIN, 22));
-	    txtrSelectWhatYou.setEditable(false);
-	    txtrSelectWhatYou.setBackground(new Color(176, 196, 222));
-	    txtrSelectWhatYou.setText("Select what you would like to change or remove");
-	    txtrSelectWhatYou.setBounds(204, 95, 609, 44);
-	    editDatapanel.add(txtrSelectWhatYou);
+	    JScrollPane scrollPane_2 = new JScrollPane();
+	    scrollPane_2.setBounds(266, 152, 475, 328);
+	    editDatapanel.add(scrollPane_2);
 	    
-	    JList list = new JList();
-	    list.setBounds(339, 150, 310, 243);
-	    editDatapanel.add(list);
+	    JTextArea statsText = new JTextArea();
+	    statsText.setEditable(false);
+	    statsText.setFont(new Font("Monospaced", Font.PLAIN, 20));
+	    statsText.setBackground(SystemColor.inactiveCaption);
+	    scrollPane_2.setViewportView(statsText);
 	    
-	    JButton btnEdit = new JButton("Edit");
-	    btnEdit.setBounds(339, 452, 89, 23);
-	    editDatapanel.add(btnEdit);
+	    //These radio buttons will allow the user to choose what statistic is displayed
+	    JRadioButton rdbtnAverageSpeed = new JRadioButton("Average Speed");
+	    rdbtnAverageSpeed.addActionListener(new ActionListener() {
+	    	public void actionPerformed(ActionEvent arg0) {
+	    		DecimalFormat value = new DecimalFormat("#.##");
+	    		statsText.setText("Average Speed over all runs:\n" + value.format(profile.getAvgSpeed()) + " meters per second");	    		
+	    	}
+	    });
+	    buttonGroup.add(rdbtnAverageSpeed);
+	    rdbtnAverageSpeed.setFont(new Font("Tahoma", Font.PLAIN, 16));
+	    rdbtnAverageSpeed.setBounds(65, 180, 152, 23);
+	    editDatapanel.add(rdbtnAverageSpeed);
 	    
-	    JButton btnRemove = new JButton("Remove");
-	    btnRemove.setBounds(560, 452, 89, 22);
-	    editDatapanel.add(btnRemove);
+	    JRadioButton rdbtnCaloriesBurned = new JRadioButton("Calories Burned");
+	    rdbtnCaloriesBurned.addActionListener(new ActionListener() {
+	    	DecimalFormat value = new DecimalFormat("#.##");
+	    	public void actionPerformed(ActionEvent e) {
+	    		statsText.setText("Average Calories burned over all runs:\n" + value.format(profile.getAvgCalsBurned()) + " Calories");
+	    	}
+	    });
+	    buttonGroup.add(rdbtnCaloriesBurned);
+	    rdbtnCaloriesBurned.setFont(new Font("Tahoma", Font.PLAIN, 16));
+	    rdbtnCaloriesBurned.setBounds(65, 206, 152, 23);
+	    editDatapanel.add(rdbtnCaloriesBurned);
+	    
+	    JRadioButton rdbtnAverageDistance = new JRadioButton("Average Distance");
+	    rdbtnAverageDistance.addActionListener(new ActionListener() {
+	    	DecimalFormat value = new DecimalFormat("#.##");
+	    	public void actionPerformed(ActionEvent e) {
+	    		statsText.setText("Average distance over all runs: \n" + value.format(profile.getAvgDistance()) + " meters");
+	    	}
+	    });
+	    buttonGroup.add(rdbtnAverageDistance);
+	    rdbtnAverageDistance.setFont(new Font("Tahoma", Font.PLAIN, 16));
+	    rdbtnAverageDistance.setBounds(65, 232, 152, 23);
+	    editDatapanel.add(rdbtnAverageDistance);
+	    
+	    JRadioButton rdbtnAverageTime = new JRadioButton("Average Time");
+	    rdbtnAverageTime.addActionListener(new ActionListener() {
+	    	DecimalFormat value = new DecimalFormat("#.##");
+	    	public void actionPerformed(ActionEvent e) {
+	    		statsText.setText("Average time over all runs: \n" + value.format(profile.getAvgTime()/60) + " minutes");
+	    	}
+	    });
+	    buttonGroup.add(rdbtnAverageTime);
+	    rdbtnAverageTime.setFont(new Font("Tahoma", Font.PLAIN, 16));
+	    rdbtnAverageTime.setBounds(65, 258, 152, 28);
+	    editDatapanel.add(rdbtnAverageTime);
+	    
+	    JTextArea txtrSelectAStatistic = new JTextArea();
+	    txtrSelectAStatistic.setEditable(false);
+	    txtrSelectAStatistic.setFont(new Font("MS Reference Sans Serif", Font.PLAIN, 16));
+	    txtrSelectAStatistic.setBackground(SystemColor.info);
+	    txtrSelectAStatistic.setText("Select a statistic to display.");
+	    txtrSelectAStatistic.setBounds(10, 127, 246, 46);
+	    editDatapanel.add(txtrSelectAStatistic);
 	    
 	    /**
 	    * Create the friends screen.
@@ -342,7 +433,7 @@ public class UI extends JFrame {
 	    profilePanel.add(panel);
 	    panel.setLayout(null);
 	    
-	    /*Username and profile picture*/
+	    /*Username and profile picture for profile screen*/
 	    JTextPane txtpnProfilePicture = new JTextPane();
 	    txtpnProfilePicture.setEditable(false);
 	    txtpnProfilePicture.setBackground(new Color(50, 205, 50));
@@ -375,7 +466,7 @@ public class UI extends JFrame {
 	    panel_1.setLayout(null);
 	    
 
-	    
+	    //preferred user activities in profile screen
 	    JTextArea txtrSectionShowingUsers = new JTextArea();
 	    txtrSectionShowingUsers.setFont(new Font("Tahoma", Font.PLAIN, 13));
 	    txtrSectionShowingUsers.setBackground(new Color(0, 191, 255));
@@ -384,6 +475,7 @@ public class UI extends JFrame {
 	    txtrSectionShowingUsers.setBounds(10, 340, 323, 256);
 	    panel_1.add(txtrSectionShowingUsers);
 	 
+	    //The graph on the profile screen
 	    JEditorPane editorPane = new JEditorPane();
 	    editorPane.setFont(new Font("Tahoma", Font.PLAIN, 21));
 	    editorPane.setEditable(false);
@@ -402,15 +494,19 @@ public class UI extends JFrame {
 	    importedData.setBackground(new Color(0, 191, 255));
 	    importedData.setText(profile.getName() + "'s runs: ");
 	    
+	    //update the runs section of the profile screen when data is imported
 	    btnImport.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
 	    		profile.importData();
+	    		DecimalFormat value = new DecimalFormat("#.#");
 	    		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 	    		ArrayList<Running> runs= profile.getData();
+
 	    		for(int i = 0; i < runs.size(); i++){
-	    			importedData.setText(importedData.getText() + "\n\nDate: " + sdf.format(runs.get(i).getDate()) + "\nTime : " + Double.toString(runs.get(i).getTime()/60) + 
+	    			importedData.setText(importedData.getText() + "\n\nRun " + (i+1) + ":\nDate: " + sdf.format(runs.get(i).getDate()) + "\nTime : " + Double.toString(runs.get(i).getTime()/60) + 
 	    					" minutes\nDistance: " +  Double.toString(runs.get(i).getDistance()) + " meters\nAltitude Loss: " + Double.toString(runs.get(i).getAltitudeLoss()) + " meters"
-	    					+ "\nAltitude Gain: " + Double.toString(runs.get(i).getAltitudeGain()) + " meters");
+	    					+ "\nAltitude Gain: " + Double.toString(runs.get(i).getAltitudeGain()) + " meters" + "\nAverage Speed: " + value.format(runs.get(i).getAvgSpeed()) + " meters per second\n" +
+	    					"Calories Burned: " + value.format(runs.get(i).getCalsBurned()) + " Calories");
 	    		}
 	    		importConfirmation.setText("Data imported");
 	    	}
@@ -418,4 +514,3 @@ public class UI extends JFrame {
 	    });
 	    
 	}
-}

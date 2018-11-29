@@ -26,6 +26,22 @@ public class Profile {
     public ArrayList<Running> getData() {
     	return data.getRuns();
     }
+    
+    public double getAvgSpeed() {
+    	return data.avgSpeed();
+    }
+    
+    public double getAvgCalsBurned() {
+    	return data.avgCalsBurnt();
+    }
+    
+    public double getAvgDistance() {
+    	return data.avgDistance();
+    }
+    
+    public double getAvgTime() {
+    	return data.avgActiveTime();
+    }
     /*public double getDistance() {
     	return data.getDistance();
     }
@@ -75,3 +91,4 @@ public class Profile {
 		return this.weight;
 	}
 }
+
