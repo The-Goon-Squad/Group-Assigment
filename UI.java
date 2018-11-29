@@ -301,6 +301,7 @@ public class UI extends JFrame {
 	    txtrViewYourData.setEditable(false);
 	    txtrViewYourData.setFont(new Font("MS Reference Sans Serif", Font.BOLD, 26));
 	    txtrViewYourData.setBackground(SystemColor.activeCaption);
+	    txtrViewYourData.setForeground(Color.CYAN);
 	    txtrViewYourData.setBounds(22, 11, 996, 50);
 	    Data.add(txtrViewYourData);
 	    
@@ -340,7 +341,7 @@ public class UI extends JFrame {
 	    });
 	    buttonGroup.add(rdbtnAverageSpeed);
 	    rdbtnAverageSpeed.setFont(new Font("Tahoma", Font.PLAIN, 16));
-	    rdbtnAverageSpeed.setBounds(65, 180, 152, 23);
+	    rdbtnAverageSpeed.setBounds(65, 180, 180, 23);
 	    editDatapanel.add(rdbtnAverageSpeed);
 	    
 	    JRadioButton rdbtnCaloriesBurned = new JRadioButton("Calories Burned");
@@ -352,7 +353,7 @@ public class UI extends JFrame {
 	    });
 	    buttonGroup.add(rdbtnCaloriesBurned);
 	    rdbtnCaloriesBurned.setFont(new Font("Tahoma", Font.PLAIN, 16));
-	    rdbtnCaloriesBurned.setBounds(65, 206, 152, 23);
+	    rdbtnCaloriesBurned.setBounds(65, 206, 180, 23);
 	    editDatapanel.add(rdbtnCaloriesBurned);
 	    
 	    JRadioButton rdbtnAverageDistance = new JRadioButton("Average Distance");
@@ -364,7 +365,7 @@ public class UI extends JFrame {
 	    });
 	    buttonGroup.add(rdbtnAverageDistance);
 	    rdbtnAverageDistance.setFont(new Font("Tahoma", Font.PLAIN, 16));
-	    rdbtnAverageDistance.setBounds(65, 232, 152, 23);
+	    rdbtnAverageDistance.setBounds(65, 232, 180, 23);
 	    editDatapanel.add(rdbtnAverageDistance);
 	    
 	    JRadioButton rdbtnAverageTime = new JRadioButton("Average Time");
@@ -376,7 +377,7 @@ public class UI extends JFrame {
 	    });
 	    buttonGroup.add(rdbtnAverageTime);
 	    rdbtnAverageTime.setFont(new Font("Tahoma", Font.PLAIN, 16));
-	    rdbtnAverageTime.setBounds(65, 258, 152, 28);
+	    rdbtnAverageTime.setBounds(65, 258, 180, 28);
 	    editDatapanel.add(rdbtnAverageTime);
 	    
 	    JTextArea txtrSelectAStatistic = new JTextArea();
@@ -414,11 +415,11 @@ public class UI extends JFrame {
 	    friendsPanel.add(txtpnFriendsListHere);
 	    
 	    JButton btnRemoveFriend = new JButton("Remove Friend");
-	    btnRemoveFriend.setBounds(316, 444, 117, 23);
+	    btnRemoveFriend.setBounds(316, 444, 150, 23);
 	    friendsPanel.add(btnRemoveFriend);
 	    
 	    JButton btnNewButton = new JButton("Add Friend");
-	    btnNewButton.setBounds(514, 444, 122, 23);
+	    btnNewButton.setBounds(514, 444, 150, 23);
 	    friendsPanel.add(btnNewButton);
 	    
 	    /**
