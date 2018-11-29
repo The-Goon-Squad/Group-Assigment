@@ -25,7 +25,7 @@ public class Running {
 	}
 	 
 	 public double getAvgSpeed() {
-		 return Distance/time;
+		 return (time/60)/(Distance/1000);
 	 }
 	 
 	 public double getCalsBurned() {

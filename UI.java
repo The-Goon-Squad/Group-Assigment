@@ -266,7 +266,7 @@ public class UI extends JFrame {
 	    				totalCal += lst.get(i).getCalsBurned();
 	    				runDisplayData.setText(runDisplayData.getText() + "\n\nRun " + (i+1) + ":\nDate: " + sdf.format(lst.get(i).getDate()) + "\nTime : " + Double.toString(lst.get(i).getTime()/60) + 
 	    					" minutes\nDistance: " +  Double.toString(lst.get(i).getDistance()) + " meters\nAltitude Loss: " + Double.toString(lst.get(i).getAltitudeLoss()) + " meters" + 
-	    						"\nAltitude Gain: " + Double.toString(lst.get(i).getAltitudeGain()) + " meters" + "\nAverage Speed: " + value.format(lst.get(i).getAvgSpeed()) + " meters per second\n" +
+	    						"\nAltitude Gain: " + Double.toString(lst.get(i).getAltitudeGain()) + " meters" + "\nAverage Speed: " + value.format(lst.get(i).getAvgSpeed()) + " minutes per kilometer\n" +
 		    					"Calories Burned: " + value.format(lst.get(i).getCalsBurned()) + " Calories");
 	    			}
 	    			
@@ -279,8 +279,8 @@ public class UI extends JFrame {
 	    			runDisplayData.setText("No sessions found between these dates");
 	    		}
 	    		runDisplayData.setText(runDisplayData.getText() + "\n___________________\n" + "Average time for selected sessions: " + value.format(totalTime/count/60) + " minutes\nAverage distance: "
-    					+ value.format(totalDistance/count) + " meters\nAverage Calories burned: " + value.format(totalCal/count) + " Calories\n" + "Average speed: " + value.format(totalDistance/totalTime)
-    					+ " meters per second");
+    					+ value.format(totalDistance/count) + " meters\nAverage Calories burned: " + value.format(totalCal/count) + " Calories\n" + "Average speed: " + value.format((totalTime/60)/(totalDistance/1000))
+    					+ " minutes per kilometer");
 	    		
 	    	}
 	    	
@@ -336,7 +336,7 @@ public class UI extends JFrame {
 	    rdbtnAverageSpeed.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent arg0) {
 	    		DecimalFormat value = new DecimalFormat("#.##");
-	    		statsText.setText("Average Speed over all runs:\n" + value.format(profile.getAvgSpeed()) + " meters per second");	    		
+	    		statsText.setText("Average Speed over all runs:\n" + value.format(profile.getAvgSpeed()) + " minutes per kilometer");	    		
 	    	}
 	    });
 	    buttonGroup.add(rdbtnAverageSpeed);
@@ -507,7 +507,7 @@ public class UI extends JFrame {
 	    		for(int i = 0; i < runs.size(); i++){
 	    			importedData.setText(importedData.getText() + "\n\nRun " + (i+1) + ":\nDate: " + sdf.format(runs.get(i).getDate()) + "\nTime : " + Double.toString(runs.get(i).getTime()/60) + 
 	    					" minutes\nDistance: " +  Double.toString(runs.get(i).getDistance()) + " meters\nAltitude Loss: " + Double.toString(runs.get(i).getAltitudeLoss()) + " meters"
-	    					+ "\nAltitude Gain: " + Double.toString(runs.get(i).getAltitudeGain()) + " meters" + "\nAverage Speed: " + value.format(runs.get(i).getAvgSpeed()) + " meters per second\n" +
+	    					+ "\nAltitude Gain: " + Double.toString(runs.get(i).getAltitudeGain()) + " meters" + "\nAverage Speed: " + value.format(runs.get(i).getAvgSpeed()) + " minutes per kilometer\n" +
 	    					"Calories Burned: " + value.format(runs.get(i).getCalsBurned()) + " Calories");
 	    		}
 	    		importConfirmation.setText("Data imported");
