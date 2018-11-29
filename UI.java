@@ -29,6 +29,7 @@ import javax.swing.JTextPane;
 import java.awt.SystemColor;
 import javax.swing.JEditorPane;
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
 import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 import datechooser.beans.DateChooserPanel;
@@ -162,9 +163,9 @@ public class UI extends JFrame {
 	    txtImportData.setBounds(241, 5, 441, 58);
 	    txtImportData.setEditable(false);
 	    importPanel_1.add(txtImportData);
-	    txtImportData.setForeground(Color.CYAN);
-	    txtImportData.setBackground(new Color(176, 196, 222));
-	    txtImportData.setFont(new Font("Comic Sans MS", Font.BOLD | Font.ITALIC, 50));
+	    txtImportData.setForeground(UIManager.getColor("TextPane.caretForeground"));
+	    txtImportData.setBackground(UIManager.getColor("TextArea.selectionBackground"));
+	    txtImportData.setFont(new Font("SignPainter", Font.BOLD | Font.ITALIC, 50));
 	    txtImportData.setText("Import Data");
 	    txtImportData.setColumns(10);
 	    
@@ -198,8 +199,9 @@ public class UI extends JFrame {
 	    fileField.setColumns(10);
 	    
 	    JTextArea txtrPlease = new JTextArea();
-	    txtrPlease.setText("Please enter the /file directory ");
-	    txtrPlease.setBounds(21, 88, 208, 26);
+	    txtrPlease.setBackground(UIManager.getColor("TextArea.selectionBackground"));
+	    txtrPlease.setText("Please enter the absolute file path");
+	    txtrPlease.setBounds(8, 93, 221, 26);
 	    importPanel_1.add(txtrPlease);
 	    
 	    /**
@@ -309,12 +311,12 @@ public class UI extends JFrame {
 	    Data.add(txtrSelectTheDates);
 	    
 	    JTextArea txtrViewYourData = new JTextArea();
-	    txtrViewYourData.setText("\t\tData Viewer");
+	    txtrViewYourData.setText("\t      Data Viewer");
 	    txtrViewYourData.setEditable(false);
-	    txtrViewYourData.setFont(new Font("MS Reference Sans Serif", Font.BOLD, 26));
-	    txtrViewYourData.setBackground(SystemColor.activeCaption);
-	    txtrViewYourData.setForeground(Color.CYAN);
-	    txtrViewYourData.setBounds(22, 11, 996, 50);
+	    txtrViewYourData.setFont(new Font("SignPainter", Font.BOLD, 30));
+	    txtrViewYourData.setBackground(UIManager.getColor("TextField.selectionBackground"));
+	    txtrViewYourData.setForeground(UIManager.getColor("TextField.darkShadow"));
+	    txtrViewYourData.setBounds(322, 11, 454, 50);
 	    Data.add(txtrViewYourData);
 	    
 	    //This panel will allow us to view statistics
@@ -326,7 +328,7 @@ public class UI extends JFrame {
 	    txtEditData = new JTextField();
 	    txtEditData.setHorizontalAlignment(SwingConstants.CENTER);
 	    txtEditData.setBackground(new Color(176, 196, 222));
-	    txtEditData.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 50));
+	    txtEditData.setFont(new Font("SignPainter", Font.BOLD | Font.ITALIC, 50));
 	    txtEditData.setEditable(false);
 	    txtEditData.setText("Statistics");
 	    txtEditData.setBounds(266, 11, 475, 53);
@@ -410,7 +412,7 @@ public class UI extends JFrame {
 	    
 	    txtFriendsList = new JTextField();
 	    txtFriendsList.setHorizontalAlignment(SwingConstants.CENTER);
-	    txtFriendsList.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 50));
+	    txtFriendsList.setFont(new Font("SignPainter", Font.BOLD | Font.ITALIC, 50));
 	    txtFriendsList.setText("Friends List");
 	    txtFriendsList.setToolTipText("");
 	    txtFriendsList.setForeground(new Color(0, 0, 0));
