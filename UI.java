@@ -298,6 +298,7 @@ public class UI extends JFrame {
 	    
 	    JTextArea txtrViewYourData = new JTextArea();
 	    txtrViewYourData.setText("\t\tData Viewer");
+	    txtrViewYourData.setEditable(false);
 	    txtrViewYourData.setFont(new Font("MS Reference Sans Serif", Font.BOLD, 26));
 	    txtrViewYourData.setBackground(SystemColor.activeCaption);
 	    txtrViewYourData.setBounds(22, 11, 996, 50);
