@@ -1,4 +1,5 @@
 import javax.swing.JFrame;
+import java.io.FileNotFoundException;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JMenuBar;
@@ -19,6 +20,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.awt.event.ActionEvent;
 import java.awt.CardLayout;
 import java.awt.Font;
@@ -34,6 +37,8 @@ import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 import datechooser.beans.DateChooserPanel;
 import javax.swing.JRadioButton;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
 
 public class UI extends JFrame {
 	
@@ -319,6 +324,68 @@ public class UI extends JFrame {
 	    txtrViewYourData.setBounds(322, 11, 454, 50);
 	    Data.add(txtrViewYourData);
 	    
+	    JComboBox comboBox = new JComboBox();
+	    comboBox.addActionListener(new ActionListener() {
+	    	public void actionPerformed(ActionEvent arg0) {
+	    		int index = 0;
+	    		int count = 0;
+				double totalTime = 0;
+				double totalDistance = 0;
+				double totalCal = 0;
+				runDisplayData.setText("");
+	    		String[] months = {"January", "Feburary", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+	    		String picked = (String) comboBox.getSelectedItem();
+	    		for (int i = 0; i < months.length; i++) {
+	    			if (months[i] == picked) {
+	    				index = i + 1;
+	    			}
+	    		}
+	    		if (index != 0) {
+	    			ArrayList<Running> runs = profile.getData();
+		    		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+		    		DecimalFormat value = new DecimalFormat("#.#");
+					ArrayList<Running> lst = profile.getData();
+					for (int i = 0; i < runs.size(); i++) {
+						String date = sdf.format(runs.get(i).getDate());
+						String[] tokens = date.split("-");
+						int month = Integer.parseInt(tokens[1]);
+						if (index == month) {
+							count++;
+							totalTime += runs.get(i).getTime();
+		    				totalDistance += runs.get(i).getDistance();
+		    				totalCal += runs.get(i).getCalsBurned();
+		    				runDisplayData.setText(runDisplayData.getText() + "\n\nRun " + (i+1) + ":\nDate: " + sdf.format(runs.get(i).getDate()) + "\nTime : " + Double.toString(runs.get(i).getTime()/60) + 
+		    					" minutes\nDistance: " +  Double.toString(runs.get(i).getDistance()) + " meters\nAltitude Loss: " + Double.toString(lst.get(i).getAltitudeLoss()) + " meters" + 
+		    						"\nAltitude Gain: " + Double.toString(runs.get(i).getAltitudeGain()) + " meters" + "\nAverage Speed: " + value.format(runs.get(i).getAvgSpeed()) + " minutes per kilometer\n" +
+			    					"Calories Burned: " + value.format(runs.get(i).getCalsBurned()) + " Calories");
+						}
+					}
+						if (count == 0) {
+			    			runDisplayData.setText("No sessions found between these dates");
+			    		}
+						else {
+								runDisplayData.setText(runDisplayData.getText() + "\n___________________\n" + "Average time for selected sessions: " + value.format(totalTime/count/60) + " minutes\nAverage distance: "
+		    					+ value.format(totalDistance/count) + " meters\nAverage Calories burned: " + value.format(totalCal/count) + " Calories\n" + "Average speed: " + value.format((totalTime/60)/(totalDistance/1000))
+		    					+ " minutes per kilometer");
+						}
+					
+	    		}
+	    		
+	    	}
+	    });
+	    
+	    comboBox.setModel(new DefaultComboBoxModel(new String[] {"Select a month", "January", "Feburary", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"}));
+	    comboBox.setBounds(682, 532, 162, 25);
+	    Data.add(comboBox);
+	    
+	    JTextArea txtrOrSelectA = new JTextArea();
+	    txtrOrSelectA.setBackground(Color.CYAN);
+	    txtrOrSelectA.setFont(new Font("Monospaced", Font.PLAIN, 14));
+	    txtrOrSelectA.setText("Or select a month to see its stats");
+	    txtrOrSelectA.setEditable(false);
+	    txtrOrSelectA.setBounds(380, 525, 278, 32);
+	    Data.add(txtrOrSelectA);
+	    
 	    //This panel will allow us to view statistics
 	    JPanel editDatapanel = new JPanel();
 	    editDatapanel.setBackground(new Color(176, 196, 222));
@@ -467,11 +534,7 @@ public class UI extends JFrame {
 	    txtUsername.setColumns(10);
 	    
 	    JButton btnEditProfile = new JButton("Edit ");
-	    btnEditProfile.addActionListener(new ActionListener() {
-	    	public void actionPerformed(ActionEvent arg0) {
-	    		
-	    	}
-	    });
+	    
 	    btnEditProfile.setBounds(935, 27, 83, 23);
 	    panel.add(btnEditProfile);
 	    
@@ -514,6 +577,7 @@ public class UI extends JFrame {
 	    btnImport.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
 	    		profile.importData(fileField.getText());
+	    		
 	    		DecimalFormat value = new DecimalFormat("#.#");
 	    		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 	    		ArrayList<Running> runs= profile.getData();
@@ -525,6 +589,9 @@ public class UI extends JFrame {
 	    					"Calories Burned: " + value.format(runs.get(i).getCalsBurned()) + " Calories");
 	    		}
 	    		importConfirmation.setText("Data imported");
+	    		if (profile.getData().isEmpty()) {
+	    			importConfirmation.setText("Invalid Path");
+	    		}
 	    	}
 	    	
 	    });
